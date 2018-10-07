@@ -8,10 +8,23 @@ module.exports = {
         return FoodieRecipes[id];
     },
     createFoodieRecipe: function (recipe) {
-
-    }, updateFoodieRecipe: function (id, recipe) {
-
-    }, deleteFoodieRecipe: function (id) {
-
+        FoodieRecipes['FoodieRecipe3'] = recipe;
+        return FoodieRecipes;
+    },
+    updateFoodieRecipe: function (id, recipe) {
+        if (FoodieRecipes[id]) {
+            FoodieRecipes[id] = recipe;
+            return true;
+        } else {
+            return false;
+        }
+    },
+    deleteFoodieRecipe: function (id) {
+        if (FoodieRecipes[id]) {
+            delete FoodieRecipes[id];
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -2,16 +2,49 @@ var express = require('express');
 var router = express.Router();
 var method = require('../methods/methods');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-	let recipes = method.getFoodieRecipes();
-	res.send(JSON.stringify(recipe));
+router.get('/read/:id?', function (req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	if (req.params.id) {
+		let recipe = method.getFoodieRecipe(req.params.id);
+		if (recipe) {
+			res.send(JSON.stringify(recipe));
+		} else {
+			res.sendStatus(404);
+		}
+	} else {
+		let recipes = method.getFoodieRecipes();
+		res.send(JSON.stringify(recipes));
+	}
 });
 
-router.get('/:id', function (req, res, next) {
+router.delete('/delete/:id', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
-	let recipe = method.getFoodieRecipe(req.params.id);
-	res.send(JSON.stringify(recipe));
+	let eliminado = method.deleteFoodieRecipe(req.params.id);
+	if (eliminado) {
+		res.sendStatus(204);
+	} else {
+		res.sendStatus(404);
+	}
+});
+
+router.put('/update/:id', function (req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	let actualizado = method.updateFoodieRecipe(req.params.id, req.body);
+	if (actualizado) {
+		res.sendStatus(204);
+	} else {
+		res.sendStatus(404)
+	}
+});
+
+router.post('/create', function (req, res) {
+	res.setHeader('Content-Type', 'application/json');
+	if (req.headers["content-type"] == 'application/json') {
+		method.createFoodieRecipe(req.body);
+		res.sendStatus(201);
+	} else {
+		res.sendStatus(404);
+	}
 });
 
 module.exports = router;
