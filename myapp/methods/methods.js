@@ -1,4 +1,5 @@
 var FoodieRecipes = require('../data/data');
+var hat = require('hat');
 
 module.exports = {
     getFoodieRecipes: function () {
@@ -8,7 +9,8 @@ module.exports = {
         return FoodieRecipes[id];
     },
     createFoodieRecipe: function (recipe) {
-        FoodieRecipes['FoodieRecipe3'] = recipe;
+        let id = hat();
+        FoodieRecipes[id] = recipe;
         return FoodieRecipes;
     },
     updateFoodieRecipe: function (id, recipe) {
