@@ -25,6 +25,9 @@ router.get('/read/:id?', function (req, res) {
 
 router.delete('/delete/:id', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
+	// method.deleteFoodieRecipe(req.params.id).then(response => {
+	// 	console.log(response);
+	// }).catch(error => console.error(error));
 	let eliminado = method.deleteFoodieRecipe(req.params.id);
 	if (eliminado) {
 		res.sendStatus(204);
@@ -46,8 +49,13 @@ router.put('/update/:id', function (req, res) {
 router.post('/create', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	if (req.headers["content-type"] == 'application/json') {
-		method.createFoodieRecipe(req.body);
-		res.sendStatus(201);
+		method.createFoodieRecipe(req.body).then(response => {
+			if (response.result.ok) {
+				res.sendStatus(201);
+			} else {
+				res.sendStatus(404);
+			}
+		}).catch(error => console.error(error));
 	} else {
 		res.sendStatus(404);
 	}
