@@ -5,15 +5,21 @@ var method = require('../methods/methods');
 router.get('/read/:id?', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	if (req.params.id) {
-		let recipe = method.getFoodieRecipe(req.params.id);
-		if (recipe) {
-			res.send(JSON.stringify(recipe));
-		} else {
-			res.sendStatus(404);
-		}
+		method.getFoodieRecipe(req.params.id).then(response => {
+			if (response.length > 0) {
+				res.json(response)
+			} else {
+				res.sendStatus(404)
+			}
+		}).catch(error => console.error(error));
 	} else {
-		let recipes = method.getFoodieRecipes();
-		res.send(JSON.stringify(recipes));
+		method.getFoodieRecipes().then(response => {
+			if (response.length > 0) {
+				res.json(response)
+			} else {
+				res.sendStatus(404)
+			}
+		}).catch(error => console.error(error));
 	}
 });
 
