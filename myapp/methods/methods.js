@@ -20,7 +20,7 @@ module.exports = {
         return collection.insertOne(recipe);
     },
     updateFoodieRecipe: function (id, recipe) {
-        return db.collection.updateOne({ _id: ObjectId(id) }, { $set: recipe });
+        return collection.updateOne({ _id: ObjectId(id) }, { $set: recipe });
     },
     deleteFoodieRecipe: function (id) {
         return collection.deleteOne({ _id: ObjectId(id) });

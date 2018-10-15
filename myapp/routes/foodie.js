@@ -37,7 +37,6 @@ router.delete('/delete/:id', function (req, res) {
 router.put('/update/:id', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	method.updateFoodieRecipe(req.params.id, req.body).then(response => {
-		console.log(response);
 		if (response.result.ok) {
 			res.sendStatus(204);
 		} else {
