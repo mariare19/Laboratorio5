@@ -25,25 +25,25 @@ router.get('/read/:id?', function (req, res) {
 
 router.delete('/delete/:id', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
-	// method.deleteFoodieRecipe(req.params.id).then(response => {
-	// 	console.log(response);
-	// }).catch(error => console.error(error));
-	let eliminado = method.deleteFoodieRecipe(req.params.id);
-	if (eliminado) {
-		res.sendStatus(204);
-	} else {
-		res.sendStatus(404);
-	}
+	method.deleteFoodieRecipe(req.params.id).then(response => {
+		if (response.result.ok) {
+			res.sendStatus(204);
+		} else {
+			res.sendStatus(404);
+		}
+	}).catch(error => console.error(error));
 });
 
 router.put('/update/:id', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
-	let actualizado = method.updateFoodieRecipe(req.params.id, req.body);
-	if (actualizado) {
-		res.sendStatus(204);
-	} else {
-		res.sendStatus(404)
-	}
+	method.updateFoodieRecipe(req.params.id, req.body).then(response => {
+		console.log(response);
+		if (response.result.ok) {
+			res.sendStatus(204);
+		} else {
+			res.sendStatus(404);
+		}
+	}).catch(error => console.error(error));
 });
 
 router.post('/create', function (req, res) {

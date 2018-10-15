@@ -14,31 +14,15 @@ module.exports = {
         return collection.find({}).toArray();
     },
     getFoodieRecipe: function (id) {
-        return collection.find({_id : ObjectId(id)}).toArray();
+        return collection.find({ _id: ObjectId(id) }).toArray();
     },
     createFoodieRecipe: function (recipe) {
-        // let id = hat();
-        // FoodieRecipes[id] = recipe;
-        // return FoodieRecipes;
         return collection.insertOne(recipe);
     },
     updateFoodieRecipe: function (id, recipe) {
-        if (FoodieRecipes[id]) {
-            FoodieRecipes[id] = recipe;
-            return true;
-        } else {
-            return false;
-        }
+        return db.collection.updateOne({ _id: ObjectId(id) }, { $set: recipe });
     },
     deleteFoodieRecipe: function (id) {
-        return collection.deleteOne({_id : ObjectId(id)}, function(err, results) {
-            console.log(results);
-        });
-        // if (FoodieRecipes[id]) {
-        //     delete FoodieRecipes[id];
-        //     return true;
-        // } else {
-        //     return false;
-        // }
+        return collection.deleteOne({ _id: ObjectId(id) });
     }
 }
