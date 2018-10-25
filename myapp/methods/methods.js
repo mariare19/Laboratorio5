@@ -6,7 +6,8 @@ module.exports = {
         return FoodieRecipes;
     },
     getFoodieRecipe: function (id) {
-        return FoodieRecipes[id];
+        const recipe = FoodieRecipes.filter(r => r.id === id)
+        return recipe ? FoodieRecipes[id] : null;
     },
     createFoodieRecipe: function (recipe) {
         let id = hat();
@@ -25,8 +26,7 @@ module.exports = {
         if (FoodieRecipes[id]) {
             delete FoodieRecipes[id];
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false
     }
 }

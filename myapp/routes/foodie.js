@@ -7,7 +7,8 @@ router.get('/read/:id?', function (req, res) {
 	if (req.params.id) {
 		let recipe = method.getFoodieRecipe(req.params.id);
 		if (recipe) {
-			res.send(JSON.stringify(recipe));
+			//res.send(JSON.stringify(recipe));
+			res.status(200).json(recipe)
 		} else {
 			res.sendStatus(404);
 		}
