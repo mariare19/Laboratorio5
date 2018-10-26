@@ -1,33 +1,49 @@
 var express = require('express');
 var router = express.Router();
 var method = require('../methods/methods');
+var redis = require('redis');
+var client = redis.createClient();
 
 router.get('/:id?', function (req, res) {
 	if (req.params.id) {
-		method.getFoodieRecipe(req.params.id).then(response => {
-			if (response.length > 0) {
-				res.status(200).json(response);
+		client.get(req.params.id, function (err, reply) {
+			if (reply) {
+				res.status(200).json(JSON.parse(reply));
 			} else {
-				res.status(404).send();
+				method.getFoodieRecipe(req.params.id).then(response => {
+					if (response.length > 0) {
+						client.set(req.params.id, JSON.stringify(response), 'EX', 5);
+						res.status(200).json(response);
+					} else {
+						res.status(404).send();
+					}
+				}).catch(err => {
+					if (res.headersSent) {
+						return next(err);
+					}
+					res.status(500).json({ error: err });
+				});
 			}
-		}).catch(err => {
-			if (res.headersSent) {
-				return next(err);
-			}
-			res.status(500).json({ error: err });
 		});
 	} else {
-		method.getFoodieRecipes().then(response => {
-			if (response.length > 0) {
-				res.status(200).json(response);
+		client.get('recipes', function (err, reply) {
+			if (reply) {
+				res.status(200).json(JSON.parse(reply));
 			} else {
-				res.status(404).send();
+				method.getFoodieRecipes().then(response => {
+					if (response.length > 0) {
+						client.set('recipes', JSON.stringify(response), 'EX', 5);
+						res.status(200).json(response);
+					} else {
+						res.status(404).send();
+					}
+				}).catch(err => {
+					if (res.headersSent) {
+						return next(err);
+					}
+					res.status(500).json({ error: err });
+				});
 			}
-		}).catch(err => {
-			if (res.headersSent) {
-				return next(err);
-			}
-			res.status(500).json({ error: err });
 		});
 	}
 });

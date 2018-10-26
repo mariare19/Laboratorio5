@@ -1,9 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
-var redis = require('redis');
-var client = redis.createClient();
-const {promisify} = require('util');
-const getAsync = promisify(client.get).bind(client);
 var db;
 var collection;
 
@@ -17,11 +13,7 @@ module.exports = {
         return collection.find({}).toArray();
     },
     getFoodieRecipe: function (id) {
-        if (client.get('1')) {
-            return getAsync('1');
-        } else {
-            return collection.find({ _id: ObjectId(id) }).toArray();
-        }
+        return collection.find({ _id: ObjectId(id) }).toArray();
     },
     createFoodieRecipe: function (recipe) {
         return collection.insertOne(recipe);
