@@ -34,7 +34,7 @@ router.get('/:id?', function (req, res) {
 
 router.delete('/:id', function (req, res) {
 	method.deleteFoodieRecipe(req.params.id).then(response => {
-		if (response.result.ok) {
+		if (response.result.ok && response.result.n > 0) {
 			res.status(204).send();
 		} else {
 			res.status(404).send();
@@ -49,7 +49,7 @@ router.delete('/:id', function (req, res) {
 
 router.put('/:id', function (req, res) {
 	method.updateFoodieRecipe(req.params.id, req.body).then(response => {
-		if (response.result.ok) {
+		if (response.result.ok && response.result.nModified > 0) {
 			res.status(204).send();
 		} else {
 			res.status(404).send();
@@ -65,7 +65,7 @@ router.put('/:id', function (req, res) {
 router.post('', function (req, res) {
 	if (req.headers["content-type"] == 'application/json') {
 		method.createFoodieRecipe(req.body).then(response => {
-			if (response.result.ok) {
+			if (response.result.ok && response.result.n > 0) {
 				res.status(201).send();
 			} else {
 				res.status(404).send();
