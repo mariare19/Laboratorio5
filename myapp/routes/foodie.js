@@ -6,7 +6,21 @@ var client = redis.createClient();
 const Joi = require('joi');
 const expressJoi = require('express-joi-validator');
 
-const schema = {
+const schemaPut = {
+	body: {
+		titulo: Joi.string().required(),
+		descripcion: Joi.string().required(),
+		ingredientes: Joi.array().required(),
+		dificultad: Joi.string().required(),
+		porciones: Joi.string().required(),
+		urlimg: Joi.string().required()
+	},
+	params: {
+		id: Joi.string().required().min(24).max(24)
+	}
+}
+
+const schemaPost = {
 	body: {
 		titulo: Joi.string().required(),
 		descripcion: Joi.string().required(),
@@ -17,7 +31,13 @@ const schema = {
 	}
 }
 
-router.get('/:id?', function (req, res) {
+const schemaId = {
+	params: {
+		id: Joi.string().min(24).max(24)
+	}
+}
+
+router.get('/:id?', expressJoi(schemaId), function (req, res) {
 	if (req.params.id) {
 		client.get(req.params.id, function (err, reply) {
 			if (reply) {
@@ -61,7 +81,7 @@ router.get('/:id?', function (req, res) {
 	}
 });
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', expressJoi(schemaId), function (req, res) {
 	method.deleteFoodieRecipe(req.params.id).then(response => {
 		if (response.result.ok && response.result.n > 0) {
 			res.status(204).send();
@@ -76,7 +96,7 @@ router.delete('/:id', function (req, res) {
 	});
 });
 
-router.put('/:id', expressJoi(schema), function (req, res) {
+router.put('/:id', expressJoi(schemaPut), function (req, res) {
 	method.updateFoodieRecipe(req.params.id, req.body).then(response => {
 		if (response.result.ok && response.result.nModified > 0) {
 			res.status(204).send();
@@ -91,7 +111,7 @@ router.put('/:id', expressJoi(schema), function (req, res) {
 	});
 });
 
-router.post('', expressJoi(schema), function (req, res) {
+router.post('', expressJoi(schemaPost), function (req, res) {
 	if (req.headers["content-type"] == 'application/json') {
 		method.createFoodieRecipe(req.body).then(response => {
 			if (response.result.ok && response.result.n > 0) {
