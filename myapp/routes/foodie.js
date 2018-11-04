@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var method = require('../methods/methods');
 var redis = require('redis');
-var client = redis.createClient();
+var client = redis.createClient(6379, 'redisDB');
 const Joi = require('joi');
 const expressJoi = require('express-joi-validator');
 

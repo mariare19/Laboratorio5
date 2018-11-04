@@ -3,7 +3,7 @@ var ObjectId = require('mongodb').ObjectId;
 var db;
 var collection;
 
-MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true, poolSize: 10 }).then(client => {
+MongoClient.connect("mongodb://mongo:27017", { useNewUrlParser: true }).then(client => {
     db = client.db('Food');
     collection = db.collection('Recipe');
 }).catch(error => console.error(error));
