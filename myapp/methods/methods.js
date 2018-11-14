@@ -3,7 +3,7 @@ var ObjectId = require('mongodb').ObjectId;
 var db;
 var collection;
 
-MongoClient.connect("mongodb://mongo:27017", { useNewUrlParser: true }).then(client => {
+MongoClient.connect("mongodb://mongodb.westus.azurecontainer.io:27017", { useNewUrlParser: true }).then(client => {
     db = client.db('Food');
     collection = db.collection('Recipe');
 }).catch(error => console.error(error));

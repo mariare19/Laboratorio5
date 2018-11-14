@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var method = require('../methods/methods');
 var redis = require('redis');
-var client = redis.createClient(6379, 'redisDB');
+var client = redis.createClient(6379, 'redis.westus.azurecontainer.io');
 const Joi = require('joi');
 const expressJoi = require('express-joi-validator');
 
@@ -36,6 +36,19 @@ const schemaId = {
 		id: Joi.string().min(24).max(24)
 	}
 }
+
+setInterval(function () {
+	client.ping(function (err, result) {
+		if (result) {
+			console.log("Redis pinged");
+		}
+
+		if (err) {
+			console.log("There was an error " + err);
+		}
+	})
+
+}, 60000)
 
 router.get('/:id?', expressJoi(schemaId), function (req, res) {
 	if (req.params.id) {
