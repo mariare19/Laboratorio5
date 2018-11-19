@@ -4,7 +4,20 @@ Este proyecto es una aplicación en Express en donde se realiza un CRUD sobre di
 
 ## Getting Started
 * Bajar este repositorio.
+```
+git clone https://github.com/mariare19/Laboratorio5.git
+```
+* Ingresar a la carpeta "myapp".
+```
+cd myapp
+```
 * Correr el comando npm install.
-* Instalar Redis en su computadora.
+```
+npm install
+```
+* Instalar Redis en su computadora y tener arriba el servicio.
 * Instalar MongoDB, se debe crear la base de datos con el nombre "Food" y una collección con el nombre "Recipes".
 * Correr el comando npm start para correr localmente el servidor.
+```
+npm start
+```
