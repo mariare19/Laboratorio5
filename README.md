@@ -31,9 +31,10 @@ npm install
 npm start
 ```
 * Si desea probar el FrontEnd de esta aplicación, ingrese al siguiente link.
-  - (FoodieRecipesFrontEnd)[https://github.com/mariare19/Laboratorio2.git]
+  - [FoodieRecipesFrontEnd](https://github.com/mariare19/Laboratorio2.git])
 * Si desea solo probar esta aplicación, se recomienda el uso de Postman.
-  - (Postman)[https://www.getpostman.com/]
+  - Descargue la aplicación [Postman](https://www.getpostman.com/).
+  - Podrá hacer las diversas pruebas ingresando con la siguiente URL `http://localhost:3000/api/v1/foodie`. 
 
 
 ## Construido con
