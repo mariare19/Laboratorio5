@@ -5,6 +5,8 @@ Este proyecto es una aplicación en Express en donde se realiza un CRUD sobre di
 ## Pre-requisitos
 
 * Tener un editor de texto (VS Code).
+* Tener instalado Node JS.
+* Tener instalado npm package manager.
 * Tener instalado MongoDB Enterprise Advanced.
 * Tener instalado MongoDB Compass.
 * Tener instalado Redis.
