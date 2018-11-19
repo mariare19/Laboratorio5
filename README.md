@@ -30,9 +30,9 @@ npm start
 ```
 
 ## Construido con
-* [ExpressJS] (https://expressjs.com/es/)
-* [MongoDB] (https://www.mongodb.com/es)
-* [Redis] (https://redis.io/)
+* [ExpressJS](https://expressjs.com/es/)
+* [MongoDB](https://www.mongodb.com/es)
+* [Redis](https://redis.io/)
 
 ## Autora
 * Maria Reneé Palma
