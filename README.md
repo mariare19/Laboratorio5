@@ -1,4 +1,4 @@
-# Laboratorio 5 (Foodie Recipes)
+# Foodie Recipes
 
 Este proyecto es una aplicación en Express en donde se realiza un CRUD sobre diversas recetas de comidas, utiliza la base de datos no relacional MongoDB y la base de datos Redis.
 
