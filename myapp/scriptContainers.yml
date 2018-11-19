@@ -1,0 +1,61 @@
+apiVersion: 2018-06-01
+location: eastus
+name: RecipesContrainerGroup
+properties:
+  containers:
+  - name: foodie-redis
+    properties:
+      image: recipescontainers.azurecr.io/redis:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 6379
+  - name: foodie-mongo
+    properties:
+      image: recipescontainers.azurecr.io/mongo:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 27017
+  - name: foodie-angular
+    properties:
+      image: recipescontainers.azurecr.io/foodie-front:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 80
+      - port: 8080
+  - name: foodie-node
+    properties:
+      image: recipescontainers.azurecr.io/foodie-back:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 3000
+  osType: Linux
+  ipAddress:
+    dnsNameLabel: 'foodierecipes'
+    type: Public
+    ports:
+    - protocol: tcp
+      port: '80'
+    - protocol: tcp
+      port: '8080'
+    - protocol : tcp
+      port: '27017'
+    - protocol : tcp
+      port: '3000'
+  imageRegistryCredentials:
+  - server: recipescontainers.azurecr.io
+    username: RecipesContainers
+    password: MYaabH78ozBpO1xeiRKpEHzKtA0+xyAK
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
